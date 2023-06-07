@@ -1,0 +1,41 @@
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
+export type StockDocument = Stock & Document;
+import { StockCategory } from '../enum/stockCategory.enum';
+import { Comment, CommentSchema } from './comment.schema';
+
+@Schema({ timestamps: true })
+export class Stock {
+    @Prop({ type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId() })
+    _id?: mongoose.Types.ObjectId;
+
+    @Prop({ required: true, unique: true })
+    name: string;
+
+    @Prop({ required: true })
+    quantity: number;
+
+    @Prop({ required: true })
+    expiryDate: Date;
+
+    @Prop({ required: true })
+    price: number;
+
+    @Prop({ required: true })
+    minimumStockLevel: number;
+
+    @Prop({ type: [CommentSchema], required: false })
+    comments: Comment[];
+
+    @Prop({ required: false })
+    location: string; // where the stock is stored
+
+    @Prop({ required: false })
+    Supplier: string;
+
+    @Prop({ required: true, enum: StockCategory })
+    stockCategory: StockCategory;
+}
+
+export const StockSchema = SchemaFactory.createForClass(Stock);
