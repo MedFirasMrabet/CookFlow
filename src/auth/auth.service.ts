@@ -10,6 +10,7 @@ import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { CreateStuffDto } from './dto/createStuff.dto';
 import { UserService } from './user/user.service';
 import { MailerService } from 'src/shared/mail-service/mailer.service';
+import { ChangePasswordDto } from './dto/changePassword.dto';
 
 @Injectable()
 export class AuthService {
@@ -47,13 +48,42 @@ export class AuthService {
     return null
   }
 
-  async findAll(): Promise<any> {
+  async addAdmin(createStuffDto: CreateStuffDto): Promise<any> {
+    const hashedPassword = await bcrypt.hash(createStuffDto.password, 10);
+    const user = await this.userModel.create({ email: createStuffDto.email, password: hashedPassword, role: createStuffDto.role });
+    if (user) {
+      this.sendEmailAddStuff(user);
+      return { user };
+    }
+    return null
+  }
+
+  async findAll(): Promise<User[]> {
     return await this.userService.findAll()
+  }
+
+  async findAllByRestaurent(restaurent: number): Promise<User[]> {
+    return await this.userService.findAllByRestaurent(restaurent)
+  }
+
+  async changePassword(changePasswordDto: ChangePasswordDto): Promise<any> {
+    const login = await this.validateUser(changePasswordDto.email, changePasswordDto.password)
+    if (login) {
+      const hashedPassword = await bcrypt.hash(changePasswordDto.newPassword, 10);
+      const newUser = this.userService.update(changePasswordDto.email, { password: hashedPassword })
+      if (newUser) {
+        return newUser
+      }
+      return null
+
+    }
+    return null
+
   }
 
   async sendEmailAddStuff(user) {
     const content = `email : ${user.email} \n password : 123123123 \n veuillez changer votre mot de passe link Application :   `
-    this.mailerService.sendEmail(user.email ,'[Activation de compte CooK FloW]',content)
+    this.mailerService.sendEmail(user.email, '[Activation de compte CooK FloW]', content)
   }
 
 

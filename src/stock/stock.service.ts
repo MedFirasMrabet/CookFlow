@@ -36,12 +36,15 @@ export class StockService {
             {
                 $push: { comment: stock.comment },
                 $set: {
-                    quantity: 10, // New quantity value
-                    location: 'New Location' // New location value
+                    stock
                 }
             },
             { new: true }
         );
+    }
+
+    async getCommentListByStockId(id: any): Promise<Stock> {
+        return await this.stockModel.findById(id).select('comments').populate('comments').exec();
     }
 
     async delete(email: string): Promise<Stock> {

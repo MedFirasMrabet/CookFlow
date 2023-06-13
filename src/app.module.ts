@@ -10,6 +10,7 @@ import { MailerService } from './shared/mail-service/mailer.service';
 import { NoteModule } from './note/note.module';
 import { CronService } from './shared/cron/cron.service';
 import { ScheduleModule } from '@nestjs/schedule';
+import { RestaurentModule } from './restaurent/restaurent.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { ScheduleModule } from '@nestjs/schedule';
     AuthModule,
     StockModule,
     NoteModule,
-    ScheduleModule.forRoot()
+    ScheduleModule.forRoot(),
+    RestaurentModule
 
   ],
   controllers: [AppController],
