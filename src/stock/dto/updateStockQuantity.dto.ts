@@ -16,7 +16,4 @@ export class UpdateStockQuantityDto {
     @IsNotEmpty()
     @IsString()
     comment: string;
-
-    @IsNotEmpty()
-    stockCategory: StockCategory;
 }

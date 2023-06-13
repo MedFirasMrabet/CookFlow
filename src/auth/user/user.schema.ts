@@ -4,6 +4,7 @@ import { Document } from 'mongoose';
 
 export type UserDocument = User & Document;
 import { UserRole } from '../enum/role.enum';
+import { Restaurent, RestaurentSchema } from 'src/restaurent/models/restaurent.schema';
 
 
 @Schema({ timestamps: true })
@@ -19,6 +20,9 @@ export class User extends Document {
 
     @Prop({ required: true, enum: UserRole, default: UserRole.Cook })
     role: UserRole;
+
+    @Prop({ type: RestaurentSchema, required: true })
+    restaurent: Restaurent;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

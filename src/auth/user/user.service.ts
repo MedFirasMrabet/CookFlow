@@ -7,10 +7,14 @@ import { User, UserDocument } from './user.schema';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) {}
+  constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) { }
 
   async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
+  }
+
+  async findAllByRestaurent(restaurent: number): Promise<User[]> {
+    return this.userModel.find({ restaurent }).exec();
   }
 
   async findByEmail(email: string): Promise<User> {
@@ -22,7 +26,7 @@ export class UserService {
     return newUser.save();
   }
 
-  async update(email: string, user: User): Promise<User> {
+  async update(email: string, user: any): Promise<User> {
     return this.userModel.findOneAndUpdate({ email }, user, { new: true }).exec();
   }
 
