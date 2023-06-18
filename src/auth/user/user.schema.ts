@@ -21,7 +21,7 @@ export class User extends Document {
     @Prop({ required: true, enum: UserRole, default: UserRole.Cook })
     role: UserRole;
 
-    @Prop({ type: RestaurentSchema, required: true })
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Restaurent', required: true })
     restaurent: Restaurent;
 }
 
