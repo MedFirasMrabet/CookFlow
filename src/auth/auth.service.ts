@@ -40,8 +40,10 @@ export class AuthService {
 
   async addStuff(createStuffDto: CreateStuffDto): Promise<any> {
     const hashedPassword = await bcrypt.hash(createStuffDto.password, 10);
-    const user = await this.userModel.create({ email: createStuffDto.email, password: hashedPassword, role: createStuffDto.role });
+    const user = await this.userModel.create({ email: createStuffDto.email, password: hashedPassword, role: createStuffDto.role , restaurent : createStuffDto.restaurent });
     if (user) {
+      console.log(user,'user');
+      
       this.sendEmailAddStuff(user);
       return { user };
     }

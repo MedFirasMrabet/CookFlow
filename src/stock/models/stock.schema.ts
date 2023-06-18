@@ -4,6 +4,7 @@ import * as mongoose from 'mongoose';
 export type StockDocument = Stock & Document;
 import { StockCategory } from '../enum/stockCategory.enum';
 import { Comment, CommentSchema } from './comment.schema';
+import { Restaurent } from 'src/restaurent/models/restaurent.schema';
 
 @Schema({ timestamps: true })
 export class Stock {
@@ -36,6 +37,9 @@ export class Stock {
 
     @Prop({ required: true, enum: StockCategory })
     stockCategory: StockCategory;
+
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Restaurent', required: true })
+    restaurent: Restaurent;
 }
 
 export const StockSchema = SchemaFactory.createForClass(Stock);

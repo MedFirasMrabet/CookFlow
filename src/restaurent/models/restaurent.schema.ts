@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
-import { User, UserSchema } from 'src/auth/user/user.schema';
+import { User, UserSchema } from '../../auth/user/user.schema';
 export type RestaurentDocument = Restaurent & Document;
 
 @Schema({ timestamps: true })
@@ -16,10 +16,10 @@ export class Restaurent {
     location: string;
 
     @Prop({ type: [UserSchema], required: false })
-    Users: User[];
+    users: User[];
 
-    @Prop({ type: UserSchema, required: false })
-    Chef: User;
+    @Prop({ type: [UserSchema], required: false })
+    chef: User;
 }
 
 export const RestaurentSchema = SchemaFactory.createForClass(Restaurent);
