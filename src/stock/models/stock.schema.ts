@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 export type StockDocument = Stock & Document;
 import { StockCategory } from '../enum/stockCategory.enum';
-import { Comment, CommentSchema } from './comment.schema';
+// import { Comment, CommentSchema } from './comment.schema';
 import { Restaurent } from 'src/restaurent/models/restaurent.schema';
 
 @Schema({ timestamps: true })
@@ -26,14 +26,14 @@ export class Stock {
     @Prop({ required: true })
     minimumStockLevel: number;
 
-    @Prop({ type: [CommentSchema], required: false })
-    comments: Comment[];
+    @Prop({ type: [], required: false })
+    comments: [];
 
     @Prop({ required: false })
     location: string; // where the stock is stored
 
     @Prop({ required: false })
-    Supplier: string;
+    supplier: string;
 
     @Prop({ required: true, enum: StockCategory })
     stockCategory: StockCategory;

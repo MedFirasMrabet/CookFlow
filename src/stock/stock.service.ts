@@ -21,6 +21,10 @@ export class StockService {
         return await this.stockModel.findById(id).exec();
     }
 
+    async findByRestaurentId(restaurent: string): Promise<Stock[]> {
+        return await this.stockModel.find({ restaurent }).exec();
+    }
+
     async create(stock: CreateStockDto): Promise<Stock> {
         const newStock = new this.stockModel(stock);
         return await newStock.save();

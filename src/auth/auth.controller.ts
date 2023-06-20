@@ -57,7 +57,6 @@ export class AuthController {
     @ApiParam({ name: 'restaurentId', required: true })
 
     async findAllByRestaurent(@Param() restaurentId: number): Promise<any> {
-        console.log(restaurentId);
         return await this.authService.findAllByRestaurent(restaurentId['restaurentId']);
     }
 

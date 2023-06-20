@@ -14,7 +14,7 @@ export class UserService {
   }
 
   async findAllByRestaurent(restaurent: number): Promise<User[]> {
-    return this.userModel.find({ restaurent }).exec();
+    return this.userModel.find({ restaurent }).populate('restaurent').exec();
   }
 
   async findByEmail(email: string): Promise<User> {

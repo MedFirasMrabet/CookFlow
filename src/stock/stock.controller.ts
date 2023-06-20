@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { Stock } from './models/stock.schema';
 import { StockService } from './stock.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { CreateStockDto } from './dto/createStock.dto';
 
 ApiTags('Stock')
@@ -17,6 +17,11 @@ export class StockController {
     @Get(':id')
     getStockById(@Param('id') id: string): Promise<Stock> {
         return this.stockService.findById(id);
+    }
+    @Get('findAllByRestaurent/:restaurentId')
+    @ApiParam({ name: 'restaurentId', required: true })
+    findAllByRestaurent(@Param('restaurentId') restaurentId: string): Promise<Stock[]> {
+        return this.stockService.findByRestaurentId(restaurentId);
     }
 
     @Post()

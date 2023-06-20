@@ -8,7 +8,7 @@ export class Comment {
     @Prop({ type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId() })
     _id?: mongoose.Types.ObjectId;
 
-    @Prop({ required: true, unique: true })
+    @Prop({ required: true, unique: false })
     text: string;
 
     @Prop({ required: true })
