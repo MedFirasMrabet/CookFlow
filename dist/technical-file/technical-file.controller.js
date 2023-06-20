@@ -22,8 +22,8 @@ let TechnicalFileController = class TechnicalFileController {
     constructor(uploadFileService) {
         this.uploadFileService = uploadFileService;
     }
-    async uploadFile(file) {
-        const uploadedFilename = await this.uploadFileService.uploadFile(file);
+    async uploadFile(file, restaurentId) {
+        const uploadedFilename = await this.uploadFileService.uploadFile(file, restaurentId['restaurentId']);
         return uploadedFilename;
     }
     async findAllByRestaurent(restaurentId) {
@@ -31,7 +31,7 @@ let TechnicalFileController = class TechnicalFileController {
     }
 };
 __decorate([
-    (0, common_1.Post)('upload'),
+    (0, common_1.Post)('upload/:restaurentId'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
         storage: (0, multer_1.diskStorage)({
             destination: './uploads',
@@ -41,8 +41,9 @@ __decorate([
         }),
     })),
     __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", Promise)
 ], TechnicalFileController.prototype, "uploadFile", null);
 __decorate([

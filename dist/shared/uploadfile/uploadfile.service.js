@@ -22,15 +22,12 @@ let UploadFileService = class UploadFileService {
         this.fileModel = fileModel;
         this.uploadPath = 'uploads';
     }
-    async uploadFile(file) {
-        console.log('++++++++++++++++++++');
-        console.log(file, 'file');
-        console.log('++++++++++++++++++++');
+    async uploadFile(file, restaurentId) {
         let createdFile = {
             type: file.mimetype,
             path: file.path,
             originalname: file.originalname,
-            restaurent: '648f66b11b1e8ab7b35d4d6d'
+            restaurent: restaurentId
         };
         createdFile = await this.createFile(createdFile);
         return createdFile;

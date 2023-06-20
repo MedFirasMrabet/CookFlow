@@ -29,7 +29,7 @@ export declare class UploadFileService {
     private fileModel;
     private readonly uploadPath;
     constructor(fileModel: Model<FileDocument>);
-    uploadFile(file: FileUploadDto): Promise<any>;
+    uploadFile(file: FileUploadDto, restaurentId: any): Promise<any>;
     createFile(file: FileUploadDto): Promise<File>;
     getFilesByRestaurent(restaurent: any): Promise<(import("mongoose").Document<unknown, {}, FileDocument> & Omit<File & import("mongoose").Document<any, any, any> & {
         _id: import("mongoose").Types.ObjectId;
