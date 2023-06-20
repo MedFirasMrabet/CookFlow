@@ -9,15 +9,12 @@ export class UploadFileService {
     private readonly uploadPath = 'uploads';
     constructor(@InjectModel(File.name) private fileModel: Model<FileDocument>) { }
 
-    async uploadFile(file: FileUploadDto) {
-        console.log('++++++++++++++++++++');
-        console.log(file, 'file');
-        console.log('++++++++++++++++++++');
+    async uploadFile(file: FileUploadDto, restaurentId) {
         let createdFile: any = {
             type: file.mimetype,
             path: file.path,
             originalname: file.originalname,
-            restaurent: '648f66b11b1e8ab7b35d4d6d'
+            restaurent: restaurentId
         }
 
         createdFile = await this.createFile(createdFile)

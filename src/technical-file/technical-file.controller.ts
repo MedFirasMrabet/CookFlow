@@ -11,7 +11,7 @@ export class TechnicalFileController {
 
 
 
-    @Post('upload')
+    @Post('upload/:restaurentId')
     @UseInterceptors(FileInterceptor('file', {
         storage: diskStorage({
             destination: './uploads', // destination path for uploaded files
@@ -19,8 +19,8 @@ export class TechnicalFileController {
                 callback(null, `${Date.now()} - ${file.originalname}`); // customize filename
             },
         }),
-    })) async uploadFile(@UploadedFile() file: Express.Multer.File) {//}: Promise<string> {
-        const uploadedFilename = await this.uploadFileService.uploadFile(file);
+    })) async uploadFile(@UploadedFile() file: Express.Multer.File , @Param() restaurentId: number) {//}: Promise<string> {
+        const uploadedFilename = await this.uploadFileService.uploadFile(file,restaurentId['restaurentId']);
 
         return uploadedFilename;
     }
